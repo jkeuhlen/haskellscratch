@@ -1,0 +1,18 @@
+# This is a sample build configuration for Haskell.
+# Check our guides at https://confluence.atlassian.com/x/VYk8Lw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+#image: haskell:7.10
+image: fpco/stack-build:lts-6.12
+pipelines:
+  default:
+    - step:
+        script: # Modify the commands below to build your repository.
+          - mkdir ~/.ssh
+          - echo -e $CI_PRIV_KEY > ~/.ssh/id_rsa_atticus_ci
+          - chmod 600 ~/.ssh/id_rsa_atticus_ci
+          - echo -e "Host atticus-ci-bitbucket\n HostName bitbucket.org\n User git\n IdentityFile ~/.ssh/id_rsa_myproject_ci\n StrictHostKeyChecking no" > ~/.ssh/config
+          - chmod 600 ~/.ssh/config
+          - cat my_known_hosts >> ~/.ssh/known_hosts
+          - stack build
