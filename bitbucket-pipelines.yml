@@ -16,4 +16,4 @@ pipelines:
           - chmod 600 ~/.ssh/config
           - cat my_known_hosts >> ~/.ssh/known_hosts
           - stack install
-	  - scp ~/.local/bin/helloworld-exe jakeuhlen@hh-ee.com:/home/jakeuhlen/deployment/
+          - scp ~/.local/bin/helloworld-exe jakeuhlen@hh-ee.com:/home/jakeuhlen/deployment/
