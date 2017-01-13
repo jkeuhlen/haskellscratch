@@ -10,10 +10,10 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           - mkdir -p ~/.ssh
-          - echo -e $CI_PRIV_KEY > ~/.ssh/id_rsa_atticus_ci
+          - (umask  077 ; echo $CI_PRIV_KEY | base64 --decode > ~/.ssh/id_rsa_atticus_ci)
           - chmod 600 ~/.ssh/id_rsa_atticus_ci
           - echo -e "Host atticus-ci-bitbucket\n HostName bitbucket.org\n User git\n IdentityFile ~/.ssh/id_rsa_myproject_ci\n StrictHostKeyChecking no" > ~/.ssh/config
           - chmod 600 ~/.ssh/config
           - cat my_known_hosts >> ~/.ssh/known_hosts
           - stack install
-          - scp ~/.local/bin/helloworld-exe jakeuhlen@hh-ee.com:/home/jakeuhlen/deployment/
+          - scp -i ~/.ssh/id_rsa_atticus_ci ~/.local/bin/helloworld-exe jakeuhlen@hh-ee.com:/home/jakeuhlen/deployment/
