@@ -3,5 +3,7 @@ module Main where
 import Lib
 
 main :: IO ()
-main = putStrLn "Hello World!"
+main = do 
+  putStrLn "Test1" 
+  putStrLn $ myFunction "Hello World!"
 
